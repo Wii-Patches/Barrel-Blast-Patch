@@ -89,7 +89,7 @@ jobs:
             $BINS --distpath pyinst_dist tools/gui.py
           cp wit-gpl-2.0.txt "pyinst_dist/Barrel-Blast-Patcher.app/Contents/Resources/wit-gpl-2.0.txt"
           cd pyinst_dist
-          zip -qr "../Barrel-Blast-Patcher-${{ matrix.target }}.zip" Barrel-Blast-Patcher.app
+          zip -qr "../Barrel-Blast-ISO-Patcher-${{ matrix.target }}.zip" Barrel-Blast-Patcher.app
 
       - name: Build app (Linux)
         if: matrix.target == 'linux-x86_64'
@@ -103,7 +103,7 @@ jobs:
             $BINS --distpath pyinst_dist tools/gui.py
           cp wit-gpl-2.0.txt pyinst_dist/Barrel-Blast-Patcher/
           cd pyinst_dist
-          tar -czf "../Barrel-Blast-Patcher-${{ matrix.target }}.tar.gz" Barrel-Blast-Patcher
+          tar -czf "../Barrel-Blast-ISO-Patcher-${{ matrix.target }}.tar.gz" Barrel-Blast-Patcher
 
       - name: Build app (Windows)
         if: matrix.target == 'windows-x86_64'
@@ -119,19 +119,19 @@ jobs:
             $BINS --distpath pyinst_dist tools/gui.py
           cp wit-gpl-2.0.txt pyinst_dist/Barrel-Blast-Patcher/
           cd pyinst_dist
-          7z a "../Barrel-Blast-Patcher-${{ matrix.target }}.zip" Barrel-Blast-Patcher \
-            || powershell -Command "Compress-Archive -Path Barrel-Blast-Patcher -DestinationPath ../Barrel-Blast-Patcher-${{ matrix.target }}.zip"
+          7z a "../Barrel-Blast-ISO-Patcher-${{ matrix.target }}.zip" Barrel-Blast-Patcher \
+            || powershell -Command "Compress-Archive -Path Barrel-Blast-Patcher -DestinationPath ../Barrel-Blast-ISO-Patcher-${{ matrix.target }}.zip"
 
       - uses: actions/upload-artifact@v4
         with:
-          name: Barrel-Blast-Patcher-${{ matrix.target }}
-          path: Barrel-Blast-Patcher-${{ matrix.target }}.*
+          name: Barrel-Blast-ISO-Patcher-${{ matrix.target }}
+          path: Barrel-Blast-ISO-Patcher-${{ matrix.target }}.*
 
       - name: Attach to release
         if: startsWith(github.ref, 'refs/tags/')
         uses: softprops/action-gh-release@v2
         with:
-          files: Barrel-Blast-Patcher-${{ matrix.target }}.*
+          files: Barrel-Blast-ISO-Patcher-${{ matrix.target }}.*
 
   patch-files:
     runs-on: ubuntu-22.04
